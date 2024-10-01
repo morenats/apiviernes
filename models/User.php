@@ -2,7 +2,7 @@
 
 class User{
     private $conn;
-    private $table = "usuarios";
+    private $table = "Usuarios";
 
     public $IdUsuarios;
     public $NombreUsuario;
@@ -40,20 +40,20 @@ class User{
         return $stmt->execute();
     }
 
-    // Actualizar un producto
-    public function update($id) {
+    // Actualizar un usuario
+    public function update($IdUsuarios) {
         $query = "UPDATE " . $this->table . " SET NombreUsuario = :NombreUsuario, Mail = :Mail, Clave = :Clave WHERE IdUsuarios = :IdUsuarios";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':IdUsuarios', $IdUsuarios);
         $stmt->bindParam(':NombreUsuario', $this->NombreUsuario);
         $stmt->bindParam(':Mail', $this->Mail);
         $stmt->bindParam(':Clave', $this->Clave);
         return $stmt->execute();
     }
 
-    // Eliminar un producto
+    // Eliminar un usuario
     public function delete($IdUsuarios) {
-        $query = "DELETE FROM " . $this->table . " WHERE  = :IdUsuarios";
+        $query = "DELETE FROM " . $this->table . " WHERE IdUsuarios = :IdUsuarios";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':IdUsuarios', $IdUsuarios);
         return $stmt->execute();
