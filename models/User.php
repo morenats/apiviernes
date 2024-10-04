@@ -1,20 +1,23 @@
 <?php
 
-class User{
+class User
+{
     private $conn;
-    private $table = "Usuarios";
+    private $table = "usuarios";
 
-    public $IdUsuarios;
-    public $NombreUsuario;
-    public $Mail;
-    public $Clave;
+    public $userId;
+    public $username;
+    public $mail;
+    public $password;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
-     // Obtener todos los usuarios
-     public function getAll() {
+    // Obtener todos los usuarios
+    public function getAll()
+    {
         $query = "SELECT * FROM " . $this->table;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -22,42 +25,44 @@ class User{
     }
 
     // Obtener un solo producto por ID
-    public function getById($IdUsuarios) {
-        $query = "SELECT * FROM " . $this->table . " WHERE IdUsuarios = :IdUsuarios";
+    public function getById($userId)
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE userId = :userId";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":IdUsuarios", $IdUsuarios);
+        $stmt->bindParam(":userId", $userId);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-     // Crear un nuevo usuario
-     public function create() {
-        $query = "INSERT INTO " . $this->table . " (NombreUsuario, Mail, Clave) VALUES (:NombreUsuario, :Mail, :Clave)";
+    // Crear un nuevo usuario
+    public function create()
+    {
+        $query = "INSERT INTO " . $this->table . " (username, mail, password) VALUES (:username, :mail, :password)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':NombreUsuario', $this->NombreUsuario);
-        $stmt->bindParam(':Mail', $this->Mail);
-        $stmt->bindParam(':Clave', $this->Clave);
+        $stmt->bindParam(':username', $this->username);
+        $stmt->bindParam(':mail', $this->mail);
+        $stmt->bindParam(':password', $this->password);
         return $stmt->execute();
     }
 
     // Actualizar un usuario
-    public function update($IdUsuarios) {
-        $query = "UPDATE " . $this->table . " SET NombreUsuario = :NombreUsuario, Mail = :Mail, Clave = :Clave WHERE IdUsuarios = :IdUsuarios";
+    public function update($userId)
+    {
+        $query = "UPDATE " . $this->table . " SET username = :username, mail = :mail, password = :password WHERE userId = :userId";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':IdUsuarios', $IdUsuarios);
-        $stmt->bindParam(':NombreUsuario', $this->NombreUsuario);
-        $stmt->bindParam(':Mail', $this->Mail);
-        $stmt->bindParam(':Clave', $this->Clave);
+        $stmt->bindParam(':userId', $userId);
+        $stmt->bindParam(':username', $this->username);
+        $stmt->bindParam(':mail', $this->mail);
+        $stmt->bindParam(':password', $this->password);
         return $stmt->execute();
     }
 
     // Eliminar un usuario
-    public function delete($IdUsuarios) {
-        $query = "DELETE FROM " . $this->table . " WHERE IdUsuarios = :IdUsuarios";
+    public function delete($userId)
+    {
+        $query = "DELETE FROM " . $this->table . " WHERE userId = :userId";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':IdUsuarios', $IdUsuarios);
+        $stmt->bindParam(':userId', $userId);
         return $stmt->execute();
     }
-
 }
-?>

@@ -1,10 +1,10 @@
 <?php
-// app/controllers/ProductController.php
+// app/controllers/UserController.php
 
 include_once '../models/User.php';
 include_once '../core/Database.php';
 
-class ProductController {
+class UserController {
     private $db;
     private $user;
 
@@ -22,16 +22,16 @@ class ProductController {
     }
 
      // Obtener un usuario por ID
-    public function getById($IdUsuarios) {
-        $user = $this->user->getById($IdUsuarios);
+    public function getById($userId) {
+        $user = $this->user->getById($userId);
         return json_encode($user);
     }
 
      // Crear un nuevo usuario
     public function create($data) {
-        $this->user->NombreUsuario = $data->NombreUsuario;
-        $this->user->Mail = $data->Mail;
-        $this->user->Clave = $data->Clave;
+        $this->user->username = $data->username;
+        $this->user->mail = $data->mail;
+        $this->user->password = $data->password;
         if ($this->user->create()) {
             return json_encode(["message" => "Usuario creado con éxito"]);
         }
@@ -39,19 +39,19 @@ class ProductController {
     }
 
     // Actualizar un usuario
-    public function update($IdUsuarios, $data) {
-        $this->user->NombreUsuario = $data->NombreUsuario;
-        $this->user->Mail = $data->Mail;
-        $this->user->Clave = $data->Clave;
-        if ($this->user->update($IdUsuarios)) {
+    public function update($userId, $data) {
+        $this->user->username = $data->username;
+        $this->user->mail = $data->mail;
+        $this->user->password = $data->password;
+        if ($this->user->update($userId)) {
             return json_encode(["message" => "Usuario actualizado con éxito"]);
         }
         return json_encode(["message" => "Error al actualizar usuario"]);
     }
 
     // Eliminar un usuario
-    public function delete($IdUsuarios) {
-        if ($this->user->delete($IdUsuarios)) {
+    public function delete($userId) {
+        if ($this->user->delete($userId)) {
             return json_encode(["message" => "Usuario eliminado con éxito"]);
         }
         return json_encode(["message" => "Error al eliminar usuario"]);
