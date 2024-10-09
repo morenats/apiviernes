@@ -33,7 +33,7 @@ class UserController {
         $this->user->mail = $data->mail;
         $this->user->password = $data->password;
         if ($this->user->create()) {
-            return json_encode(["message" => "Usuario creado con éxito"]);
+            return json_encode(["message" => "OK"]);
         }
         return json_encode(["message" => "Error al crear usuario"]);
     }
@@ -44,7 +44,7 @@ class UserController {
         $this->user->mail = $data->mail;
         $this->user->password = $data->password;
         if ($this->user->update($userId)) {
-            return json_encode(["message" => "Usuario actualizado con éxito"]);
+            return json_encode(["message" => "OK"]);
         }
         return json_encode(["message" => "Error al actualizar usuario"]);
     }
@@ -52,7 +52,7 @@ class UserController {
     // Eliminar un usuario
     public function delete($userId) {
         if ($this->user->delete($userId)) {
-            return json_encode(["message" => "Usuario eliminado con éxito"]);
+            return json_encode(["message" => "OK"]);
         }
         return json_encode(["message" => "Error al eliminar usuario"]);
     }
