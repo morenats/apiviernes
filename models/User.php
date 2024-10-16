@@ -65,4 +65,16 @@ class User
         $stmt->bindParam(':userId', $userId);
         return $stmt->execute();
     }
+
+    //Autentificar al usuario
+    public function authenticate($mail, $password)
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE mail = :mail AND password = :password";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':mail', $mail);
+        $stmt->bindParam(':password', $password);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 }

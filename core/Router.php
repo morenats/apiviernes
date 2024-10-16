@@ -19,7 +19,11 @@ switch ($method) {
 
     case 'POST':
         $data = json_decode(file_get_contents("php://input"));
-        $result = $controller->create($data);
+        if (isset($_GET['action']) && $_GET['action'] === 'login') {
+            $result = $controller->login($data);
+        } else {
+            $result = $controller->create($data);
+        }
         View::render($result);
         break;
 
